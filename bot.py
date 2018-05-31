@@ -12,11 +12,11 @@ bot = commands.Bot(command_prefix=':')
 bot.remove_command('help')
 async def loop():
     while True:
-        await bot.change_presence(game=discord.Game(name=":help", url="https://twitch.tv/MMgamerBOT", type=1))
+        await bot.change_presence(game=discord.Game(name=":help", type=2))
         await asyncio.sleep(15)
-        await bot.change_presence(game=discord.Game(name="Custom Bot", url="https://twitch.tv/MMgamerBOT", type=1))
+        await bot.change_presence(game=discord.Game(name="My boss", type=2))
         await asyncio.sleep(15)
-        await bot.change_presence(game=discord.Game(name="prefix -> :", url="https://twitch.tv/MMgamerBOT", type=1))
+        await bot.change_presence(game=discord.Game(name="prefix -> :", type=2))
         await asyncio.sleep(15)
 
 @bot.event
