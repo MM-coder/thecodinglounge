@@ -385,7 +385,8 @@ async def botinfo(ctx, sbot=None):
             """)
         await client.say(embed=embed)
     else:
-        pass
+        if sbot.name.lower() == ''
+            embed = discord.Embed(title='Stats for ' + sbot.name, description='')
 
 
 
