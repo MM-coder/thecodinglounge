@@ -1,1 +1,1 @@
-worker: python The Coding Lounge Bot.py
+worker: python Bot.py
