@@ -376,6 +376,17 @@ async def info(ctx, user: discord.Member):
     embed.add_field(name="Account Creation:", value=user.created_at, inline=True)
     embed.set_footer(icon_url="https://i.imgur.com/yB0Lig7.png", text="Custom Bot For The Coding Lounge")
     await client.say(embed=embed)
+@bot.command(pass_context=True)
+async def botinfo(ctx, sbot=None):
+    if sbot == None:
+        embed = discord.Embed(title='Info for our bot', description="""
+            Made by: EpicShardGaming and MMgamer
+
+            """)
+        await client.say(embed=embed)
+    else:
+        pass
+
 
 
 
