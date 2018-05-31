@@ -251,37 +251,37 @@ async def help(ctx, module="all"):
     if module == "info":
                 embed=discord.Embed(title="Help", description="""
                 Info Commands:
-                •`!ftn pc <player>` - Gets fortnite players status (pc only).
-                •`!info <@mention>` - Gets some info on the server.
-                •`!all_servers` - Shows all servers the bot is in.
-                •`!urban <querey>` -Searches the urbandic for your query
-                •`!pfp <@user>` >` - Shows a users's profile picture
-                •`!all_servers` - Shows all servers the bot is in.
+                •`:ftn pc <player>` - Gets fortnite players status (pc only).
+                •`:info <@mention>` - Gets some info on the server.
+                •`:all_servers` - Shows all servers the bot is in.
+                •`:urban <querey>` -Searches the urbandic for your query
+                •`:pfp <@user>` >` - Shows a users's profile picture
+                •`:all_servers` - Shows all servers the bot is in.
                 """)
                 await bot.say(embed=embed)
     elif module == 'all':
         embed=discord.Embed(title="All Help", description="""
         Info Commands:
-        •`!ftn pc <player>` - Gets fortnite players status (pc only).
-        •`!info <@mention>` - Gets some info on the server.
-        •`!all_servers` - Shows all servers the bot is in.
-        •`!urban <querey>` -Searches the urbandic for your query
-        •`!pfp <@user>` - Shows a users's profile picture
-        •`!all_servers` - Shows all servers the bot is in.
+        •`:ftn pc <player>` - Gets fortnite players status (pc only).
+        •`:info <@mention>` - Gets some info on the server.
+        •`:all_servers` - Shows all servers the bot is in.
+        •`:urban <querey>` -Searches the urbandic for your query
+        •`:pfp <@user>` - Shows a users's profile picture
+        •`:all_servers` - Shows all servers the bot is in.
         Fun commands:
-         •`!cat` - Gets you a select cat GIF.
-         •`!dog` - Gets you a cool dog GIF.
-         •`!slap` - Slapy Slpay Scratchy Bitey.
-         •`!add` - Adds two numbers.
-         •`!multipy` - Multipys two numbers.
+         •`:cat` - Gets you a select cat GIF.
+         •`:dog` - Gets you a cool dog GIF.
+         •`:slap` - Slapy Slpay Scratchy Bitey.
+         •`:add` - Adds two numbers.
+         •`:multipy` - Multipys two numbers.
         Moderation Commands:
-        •`!warn <user> <reason>` - Warns a user (Also DM's)
-        •`!kick <@user>` - Kicks the user from the server
-        •`!ban <@user>` - Bans a user for the server
-        •`!mute <@user>` - Mutes a user
-        •`!leave` - Makes the bot leave the server
+        •`:warn <user> <reason>` - Warns a user (Also DM's)
+        •`:kick <@user>` - Kicks the user from the server
+        •`:ban <@user>` - Bans a user for the server
+        •`:mute <@user>` - Mutes a user
+        •`:leave` - Makes the bot leave the server
         Misc Commands:
-        •`!ami <@role>|<rolename>` - Tells you if you have that specific role in the server
+        •`:ami <@role>|<rolename>` - Tells you if you have that specific role in the server
 
         """, color=0x7289DA)
         embed.set_footer(icon_url="https://i.imgur.com/yB0Lig7.png", text="Custom Bot For The Coding Lounge")
@@ -289,11 +289,11 @@ async def help(ctx, module="all"):
     elif module == 'info':
             embed=discord.Embed(title="Help", description="""
             Fun commands:
-            •`!cat` - Gets you a select cat GIF.
-            •`!dog` - Gets you a cool dog GIF.
-            •`!slap` - Slapy Slpay Scratchy Bitey.
-            •`!add` - Adds two numbers.
-            •`!multipy` - Multipys two numbers.
+            •`:cat` - Gets you a select cat GIF.
+            •`:dog` - Gets you a cool dog GIF.
+            •`:slap` - Slapy Slpay Scratchy Bitey.
+            •`:add` - Adds two numbers.
+            •`:multipy` - Multipys two numbers.
          """, colour=0x7289DA)
             embed.set_footer(icon_url="https://i.imgur.com/yB0Lig7.png", text="Custom Bot For The Coding Lounge")
             await bot.say(embed=embed)
