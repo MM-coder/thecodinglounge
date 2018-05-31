@@ -1,1 +1,1 @@
-worker: python MMgamerBOT2.0.py
+worker: python The Coding Lounge Bot.py
