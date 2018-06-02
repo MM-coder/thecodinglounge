@@ -26,6 +26,13 @@ async def on_ready():
     print ("With the ID: " + bot.user.id)
     await bot.change_presence(game=discord.Game(name="mmgamerbot.com", url="https://twitch.tv/MMgamerBOT", type=1))
     await loop()
+@bot.command(pass_context=True)
+async def kill(ctx, user:discord.Member):
+    await bot.delete_message(ctx.message)
+        overwrite = discord.PermissionOverwrite()
+        overwrite.send_messages = False
+        for i in ctx.message.server.channels:
+            await bot.edit_channel_permissions(i, user, overwrite)
 
 @bot.command(pass_context=True)
 async def lock(ctx, time=0):
