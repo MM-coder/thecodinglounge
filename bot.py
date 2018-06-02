@@ -29,10 +29,10 @@ async def on_ready():
 @bot.command(pass_context=True)
 async def kill(ctx, user:discord.Member):
     await bot.delete_message(ctx.message)
-        overwrite = discord.PermissionOverwrite()
-        overwrite.send_messages = False
-        for i in ctx.message.server.channels:
-            await bot.edit_channel_permissions(i, user, overwrite)
+    overwrite = discord.PermissionOverwrite()
+    overwrite.send_messages = False
+    for i in ctx.message.server.channels:
+        await bot.edit_channel_permissions(i, user, overwrite)
 
 @bot.command(pass_context=True)
 async def lock(ctx, time=0):
