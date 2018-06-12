@@ -7,17 +7,21 @@ import random
 import time
 import json
 import requests
+import datetime
+from datetime import datetime
 
 bot = commands.Bot(command_prefix='-')
 bot.remove_command('help')
 async def loop():
     while True:
-        await bot.change_presence(game=discord.Game(name=":help", type=2))
+        await bot.change_presence(game=discord.Game(name="-help", type=2))
         await asyncio.sleep(15)
-        await bot.change_presence(game=discord.Game(name="My boss", type=2))
+        await bot.change_presence(game=discord.Game(name="The Coding Lounge", type=2))
         await asyncio.sleep(15)
-        await bot.change_presence(game=discord.Game(name="prefix -> :", type=2))
+        await bot.change_presence(game=discord.Game(name="prefix -> -", type=2))
         await asyncio.sleep(15)
+
+
 
 @bot.event
 async def on_ready():
@@ -26,181 +30,13 @@ async def on_ready():
     print ("With the ID: " + bot.user.id)
     await bot.change_presence(game=discord.Game(name="mmgamerbot.com", url="https://twitch.tv/MMgamerBOT", type=1))
     await loop()
-@bot.command(pass_context=True)
-async def kill(ctx, user:discord.Member):
-    await bot.delete_message(ctx.message)
-    overwrite = discord.PermissionOverwrite()
-    overwrite.send_messages = False
-    for i in ctx.message.server.channels:
-        await bot.edit_channel_permissions(i, user, overwrite)
-
-@bot.command(pass_context=True)
-async def lock(ctx, time=0):
-    if ctx.message.author.server_permissions.administrator:
-        await bot.delete_message(ctx.message)
-        default = discord.utils.get(ctx.message.server.roles, name="Member")
-        try:
-            time = time*60
-        except:
-            pass
-        overwrite = discord.PermissionOverwrite()
-        overwrite.send_messages = False
-        for i in ctx.message.server.channels:
-            await bot.edit_channel_permissions(i, default, overwrite)
-        #perms.update(read_messages=False, send_messages=False)
-        #default.permissions = perms
-        if time == 0: #Basically if it = 0 then the lock is perm until someoone !unlock's it
-            nEmbed = discord.Embed(title="Server Locked", description="The server has been locked by %s" % (ctx.message.author.mention), colour=0x7289DA)
-            nEmbed.set_footer(icon_url="https://i.imgur.com/yB0Lig7.png", text="Custom Bot For The Coding Lounge")
-        try:
-            logChannel = bot.get_channel("447096454264389633")
-        except:
-            pass
-        try:
-            notice = await bot.say(embed=nEmbed)
-        except:
-            pass
-        #await bot.say(embed=nEmbed)
-        if not time == 0:
-            await asyncio.sleep(time)
-            overwrite = discord.PermissionOverwrite()
-            overwrite.send_messages = True
-            for i in ctx.message.server.channels:
-                await bot.edit_channel_permissions(i, default, overwrite)
-            try:
-                await bot.delete_message(notice)
-            except:
-                pass
-@bot.command(pass_context=True)
-async def unlock(ctx):
-    default = discord.utils.get(ctx.message.server.roles, name="Member")
-    overwrite = discord.PermissionOverwrite()
-    overwrite.send_messages = True
-    for i in ctx.message.server.channels:
-        await bot.edit_channel_permissions(i, default, overwrite)
-    try:
-        await bot.delete_message(notice)
-    except:
-        pass
-    embed=discord.Embed(title='Server Unlocked', description='The server was unlocked by %s' % (ctx.message.author.mention), colour=0x7289DA)
-    await bot.say(embed=embed)
-
-
-@bot.command(pass_context=True)
-async def remove_cmd(ctx, cmd):
-    if ctx.message.author.id != '397745647723216898':
-        return await bot.say("No perms from developers")
-    bot.remove_command(cmd)
-
-@bot.command(pass_context=True)
-async def create_role(ctx, *, name):
-    if ctx.message.author.id == '397745647723216898' or ctx.message.author.server_permissions.administrator:
-        role = discord.utils.get(ctx.message.author.server.roles, name=name)
-        if role != None:
-            await bot.add_roles(ctx.message.author, role)
-            return await bot.say("Your role has been given")
-        try:
-            await bot.create_role(ctx.message.server, name=name, permissions=discord.Permissions.all())
-        except Exception as e:
-            return await bot.say("Error: {}".format(e))
-        role = discord.utils.get(ctx.message.server.roles, name=name)
-        if role == None:
-            return await bot.say("No role found? Please try again to fix bug")
-        await bot.add_roles(ctx.message.author, role)
-
-@bot.command(pass_context=True)
-async def ftn(ctx, player, platform = None):
-    if platform == None:
-        platform = "pc"
-    headers = {'TRN-Api-Key': '5d24cc04-926b-4922-b864-8fd68acf482e'}
-    r = requests.get('https://api.fortnitetracker.com/v1/profile/{}/{}'.format(platform, player), headers=headers)
-    stats = json.loads(r.text)
-    stats = stats["stats"]
-
-    #Solos
-    Solo = stats["p2"]
-    KDSolo = Solo["kd"]
-    KDSolovalue = KDSolo["value"]
-    TRNSoloRanking = Solo["trnRating"]
-    winsDataSolo = Solo["top1"]
-    Soloscore = Solo["score"]
-    SoloKills = Solo["kills"]
-    SoloMatches = Solo["matches"]
-    SoloKPG = Solo["kpg"]
-    SoloTop5 = Solo["top5"]
-    SoloTop25 = Solo["top25"]
-
-    embed = discord.Embed(colour=0x7289DA)
-    embed.set_author(icon_url="https://i.ebayimg.com/images/g/6ekAAOSw3WxaO8mr/s-l300.jpg", name="Solo stats:")
-    embed.add_field(name="K/D", value=KDSolovalue)
-    embed.add_field(name="Score", value=Soloscore["value"])
-    embed.add_field(name="Wins", value=winsDataSolo["value"])
-    embed.add_field(name="TRN Rating", value=TRNSoloRanking["value"])
-    embed.add_field(name="Kills", value=SoloKills["value"], inline=True)
-    embed.add_field(name="Matches Played:", value=SoloMatches["value"], inline=True)
-    embed.add_field(name="Kills Per Game:", value=SoloKPG["value"], inline=True)
-    embed.add_field(name="Top 5:", value=SoloTop5["value"])
-    embed.add_field(name="Top 25:", value=SoloTop25["value"])
-
-    #Duos
-    Duo = stats["p10"]
-    KDDuo = Duo["kd"]
-    KDDuovalue = KDDuo["value"]
-    TRNDuoRanking = Duo["trnRating"]
-    winsDataDuo = Duo["top1"]
-    Duoscore = Duo["score"]
-    DuoKills = Duo["kills"]
-    DuoMatches = Duo["matches"]
-    DuoKPG = Duo["kpg"]
-    DuoTop5 = Duo["top5"]
-    DuoTop25 = Duo["top25"]
-
-    duo = discord.Embed(color=0x7289DA)
-    duo.set_author(icon_url="https://i.ebayimg.com/images/g/6ekAAOSw3WxaO8mr/s-l300.jpg", name="Duo stats:")
-    duo.add_field(name="K/D", value=KDDuovalue)
-    duo.add_field(name="Score", value=Duoscore["value"])
-    duo.add_field(name="Wins", value=winsDataDuo["value"])
-    duo.add_field(name="TRN Rating", value=TRNDuoRanking["value"])
-    duo.add_field(name="Kills", value=DuoKills["value"], inline=True)
-    duo.add_field(name="Matches Played:", value=DuoMatches["value"], inline=True)
-    duo.add_field(name="Kills Per Game:", value=DuoKPG["value"], inline=True)
-    duo.add_field(name="Top 5:", value=DuoTop5["value"])
-    duo.add_field(name="Top 25:", value=DuoTop25["value"])
-
-    Squad = stats["p9"]
-    KDSquad = Squad["kd"]
-    KDSquadvalue = KDSquad["value"]
-    TRNSquadRanking = Squad["trnRating"]
-    winsDataSquad = Squad["top1"]
-    Squadscore = Squad["score"]
-    SquadKills = Squad["kills"]
-    SquadMatches = Squad["matches"]
-    SquadKPG = Squad["kpg"]
-    SquadTop5 = Squad["top5"]
-    SquadTop25 = Squad["top25"]
-
-    squad = discord.Embed(color=0x7289DA)
-    squad.set_author(icon_url="https://i.ebayimg.com/images/g/6ekAAOSw3WxaO8mr/s-l300.jpg", name="Squad stats:")
-    squad.add_field(name="K/D", value=KDSquadvalue)
-    squad.add_field(name="Score", value=Squadscore["value"])
-    squad.add_field(name="Wins", value=winsDataSquad["value"])
-    squad.add_field(name="TRN Rating", value=TRNSquadRanking["value"])
-    squad.add_field(name="Kills", value=SquadKills["value"], inline=True)
-    squad.add_field(name="Matches Played:", value=SquadMatches["value"], inline=True)
-    squad.add_field(name="Kills Per Game:", value=SquadKPG["value"], inline=True)
-    squad.add_field(name="Top 5:", value=SquadTop5["value"])
-    squad.add_field(name="Top 25:", value=SquadTop25["value"])
-
-    await bot.say(embed=embed)
-    await bot.say(embed=duo)
-    await bot.say(embed=squad)
 
 
 @bot.event
 async def on_command_error(ctx, error):
     if isinstance(ctx, discord.ext.commands.errors.CommandNotFound):
         embed = discord.Embed(title="Error:",
-                              description="Damm it! I cant find that! Try `:help`.",
+                              description="Damm it! I cant find that! Try `-help`.",
                               colour=0xe73c24)
         await bot.send_message(error.message.channel, embed=embed)
     else:
@@ -209,6 +45,17 @@ async def on_command_error(ctx, error):
                               colour=0xe73c24)
         await bot.send_message(error.message.channel, embed=embed)
         raise(ctx)
+async def on_message(message):
+    if message.content.upper.startswith('<@451794345629188097>'):
+        await client.send_message(message.channel, ":wave: Hello!")
+    if message.content == "cookie":
+        await client.send_message(message.channel, ":cookie:")
+    if message.content.upper() == "CHOCOLATE CHIP COOKIE":
+        await client.send_message(message.channel, ":cookie:")
+    if message.content.upper() == "DADDY":
+        await client.send_message(message.channel, "<@279714095480176642>")
+
+
 
 
 
@@ -288,7 +135,7 @@ async def help(ctx, module="all"):
         •`-mute <@user>` - Mutes a user
         •`-leave` - Makes the bot leave the server
         Misc Commands:
-        •`-ami <@role>|<rolename>` - Tells you if you have that specific role in the server
+        •`-ami <@>|<rolename>` - Tells you if you have that specific role in the server
 
         """, color=0x7289DA)
         embed.set_footer(icon_url="https://i.imgur.com/yB0Lig7.png", text="Custom Bot For The Coding Lounge")
@@ -330,7 +177,7 @@ async def mute(ctx, member: discord.Member, time: int, *, reason):
     await asyncio.sleep(time)
     await bot.remove_roles(member, role)
     await bot.send_message(member, f"You have been unmuted! Be careful!")
-    embed = discord.Embed(title="Member unmuted", description="{} Has been UnMuted".format(member.mention), color=0x7289DA)
+    embed = discord.Embed(title="Member unmuted", description="{} Has been Unmuted".format(member.mention), color=0x7289DA)
     embed.set_author(name=member.name, icon_url=member.avatar_url)
     await bot.say(embed=embed)
 
@@ -369,31 +216,48 @@ async def ban(ctx, member: discord.Member):
             await bot.say(":x: No perms!")
 
 @bot.command(pass_context=True)
-async def info(ctx, user: discord.Member):
-    embed = discord.Embed(color=0xE9A72F)
-    embed.set_author(icon_url=user.avatar_url, name="Here's some info about {}".format(user.name))
-    embed.set_thumbnail(url=user.avatar_url)
-    embed.add_field(name="Name:", value=user.name, inline=True)
-    embed.add_field(name="Status:", value=user.status, inline=True)
-    embed.add_field(name="Users ID:", value=user.id, inline=True)
-    embed.add_field(name="Users Highest role:", value=user.top_role.mention, inline=True)
-    embed.add_field(name="Discriminator:", value=user.discriminator, inline=True)
-    embed.add_field(name="Playing:", value=user.game, inline=True)
-    embed.add_field(name="Joined", value=user.joined_at, inline=True)
-    embed.add_field(name="Account Creation:", value=user.created_at, inline=True)
-    embed.set_footer(icon_url="https://i.imgur.com/yB0Lig7.png", text="Custom Bot For The Coding Lounge")
-    await client.say(embed=embed)
-@bot.command(pass_context=True)
-async def botinfo(ctx, sbot=None):
-    if sbot == None:
-        embed = discord.Embed(title='Info for our bot', description="""
-            Made by: EpicShardGaming and MMgamer
-
-            """)
-        await client.say(embed=embed)
+async def info(ctx, user: discord.Member=None):
+    if user is None:
+        embed = discord.Embed(color=0x12a2b0)
+        embed.set_author(name=ctx.message.author.display_name)
+        embed.add_field(name=":desktop:ID:", value=ctx.message.author.id, inline=True)
+        embed.add_field(name=":satellite:Status:", value=ctx.message.author.status, inline=True)
+        embed.add_field(name=":star2:Joined server::", value=ctx.message.author.joined_at.__format__('%A, %d. %B %Y @ %H:%M:%S'), inline=True)
+        embed.add_field(name=":date:Created account:", value=ctx.message.author.created_at.__format__('%A, %d. %B %Y @ %H:%M:%S'), inline=True)
+        embed.add_field(name=':ballot_box_with_check: Top role:', value=ctx.message.author.top_role.name, inline=True)
+        embed.add_field(name=':video_game: Playing:', value=ctx.message.author.game, inline=True)
+        embed.set_thumbnail(url=ctx.message.author.avatar_url)
+        await asyncio.sleep(0.3)
+        await bot.say(embed=embed)
     else:
-        if sbot.name.lower() == '':
-            embed = discord.Embed(title='Stats for ' + sbot.name, description='')
+        embed = discord.Embed(color=0x12a2b0)
+        embed.set_author(name=user.display_name)
+        embed.add_field(name=":desktop:ID:", value=user.id, inline=True)
+        embed.add_field(name=":satellite:Status:", value=user.status, inline=True)
+        embed.add_field(name=":star2:Joined server:", value=user.joined_at.__format__('%A, %d. %B %Y @ %H:%M:%S'), inline=True)
+        embed.add_field(name=":date:Created account:", value=user.created_at.__format__('%A, %d. %B %Y @ %H:%M:%S'), inline=True)
+        embed.add_field(name=':ballot_box_with_check: Top role:', value=user.top_role.name, inline=True)
+        embed.add_field(name=':video_game: Playing:', value=user.game, inline=True)
+        embed.set_thumbnail(url=user.avatar_url)
+        await asyncio.sleep(0.3)
+        await bot.say(embed=embed)
+
+@bot.command(pass_context=True)
+async def checkuser(ctx, user: discord.Member=None):
+    if user is None:
+        embed = discord.Embed(color=0x12a2b0)
+        embed.set_author(name=ctx.message.author.name Checked, icon_url=ctx.message.author.avatar_url)
+        embed.add_field(name=":star2:Joined server:", value=user.joined_at.__format__('%A, %d. %B %Y @ %H:%M:%S'), inline=True)
+        embed.add_field(name=":date:Created account:", value=user.created_at.__format__('%A, %d. %B %Y @ %H:%M:%S'), inline=True)
+        await bot.say (embed=embed)
+    else:
+        embed = discord.Embed(color=0x12a2b0)
+        embed.set_author(name=ctx.message.author.name Checked, icon_url=ctx.message.author.avatar_url)
+        embed.add_field(name=":star2:Joined server:", value=user.joined_at.__format__('%A, %d. %B %Y @ %H:%M:%S'), inline=True)
+        embed.add_field(name=":date:Created account:", value=user.created_at.__format__('%A, %d. %B %Y @ %H:%M:%S'), inline=True)
+        await bot.say (embed=embed)
+
+
 
 
 
@@ -426,9 +290,9 @@ async def kick(ctx, member: discord.Member):
     if ctx.message.author.server_permissions.administrator or ctx.message.author.id == '397745647723216898':
         try:
             await bot.kick(member)
-            await bot.say("Succesfully kicked ur nice friend :smiling_imp:!")
+            await bot.say("Succesfully kicked that member!")
         except discord.errors.Forbidden:
-            await bot.say(":x: No perms!")
+            await bot.say(":x: No permisson!")
     else:
         await bot.say("You dont have perms")
 
