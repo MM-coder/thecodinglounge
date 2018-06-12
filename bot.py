@@ -30,7 +30,7 @@ async def on_ready():
     print ("With the ID: " + bot.user.id)
     await bot.change_presence(game=discord.Game(name="mmgamerbot.com", url="https://twitch.tv/MMgamerBOT", type=1))
     await loop()
-    
+
 
 
 @bot.event
@@ -57,6 +57,7 @@ async def on_message(message):
         await client.send_message(message.channel, ":cookie:")
     if message.content.upper() == "DADDY":
         await client.send_message(message.channel, "<@279714095480176642>")
+    await bot.process_commands(message)
 
 
 
@@ -345,9 +346,6 @@ async def reboot(ctx):
     if not (ctx.message.author.id == '279714095480176642' or ctx.message.author.id == '449641568182206476'):
         return await bot.say(":x: You **Must** Be Bot Owner Or Developer")
     await bot.logout()
-@bot.event
-async def on_message(message):
-    await bot.process_commands(message)
 @bot.event
 async def on_member_join(member: discord.Member):
     if member.server.id == '422083182167588864':
