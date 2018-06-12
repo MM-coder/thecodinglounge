@@ -50,13 +50,13 @@ async def on_command_error(ctx, error):
 @bot.event
 async def on_message(message):
     if message.content == "<@451794345629188097>":
-        await client.send_message(message.channel, ":wave: Hello!")
+        await bot.send_message(message.channel, ":wave: Hello!")
     if message.content == "cookie":
-        await client.send_message(message.channel, ":cookie:")
+        await bot.send_message(message.channel, ":cookie:")
     if message.content.upper() == "CHOCOLATE CHIP COOKIE":
-        await client.send_message(message.channel, ":cookie:")
+        await bot.send_message(message.channel, ":cookie:")
     if message.content.upper() == "DADDY":
-        await client.send_message(message.channel, "<@279714095480176642>")
+        await bot.send_message(message.channel, "<@279714095480176642>")
 
 
 
