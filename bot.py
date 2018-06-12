@@ -49,7 +49,7 @@ async def on_command_error(ctx, error):
 
 @bot.event
 async def on_message(message):
-    if message.content.upper.startswith('<@451794345629188097>'):
+    if message.content.upper.startswith("<@451794345629188097>"):
         await client.send_message(message.channel, ":wave: Hello!")
     if message.content == "cookie":
         await client.send_message(message.channel, ":cookie:")
