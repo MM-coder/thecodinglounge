@@ -30,6 +30,7 @@ async def on_ready():
     print ("With the ID: " + bot.user.id)
     await bot.change_presence(game=discord.Game(name="mmgamerbot.com", url="https://twitch.tv/MMgamerBOT", type=1))
     await loop()
+    
 
 
 @bot.event
@@ -45,6 +46,8 @@ async def on_command_error(ctx, error):
                               colour=0xe73c24)
         await bot.send_message(error.message.channel, embed=embed)
         raise(ctx)
+
+@bot.event
 async def on_message(message):
     if message.content.upper.startswith('<@451794345629188097>'):
         await client.send_message(message.channel, ":wave: Hello!")
