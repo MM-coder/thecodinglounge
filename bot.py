@@ -246,13 +246,13 @@ async def info(ctx, user: discord.Member=None):
 async def checkuser(ctx, user: discord.Member=None):
     if user is None:
         embed = discord.Embed(color=0x12a2b0)
-        embed.set_author(name=ctx.message.author.name Checked, icon_url=ctx.message.author.avatar_url)
+        embed.set_author(name=ctx.message.author.name ,icon_url=ctx.message.author.avatar_url)
         embed.add_field(name=":star2:Joined server:", value=user.joined_at.__format__('%A, %d. %B %Y @ %H:%M:%S'), inline=True)
         embed.add_field(name=":date:Created account:", value=user.created_at.__format__('%A, %d. %B %Y @ %H:%M:%S'), inline=True)
         await bot.say (embed=embed)
     else:
         embed = discord.Embed(color=0x12a2b0)
-        embed.set_author(name=ctx.message.author.name Checked, icon_url=ctx.message.author.avatar_url)
+        embed.set_author(name=ctx.message.author.name , icon_url=ctx.message.author.avatar_url)
         embed.add_field(name=":star2:Joined server:", value=user.joined_at.__format__('%A, %d. %B %Y @ %H:%M:%S'), inline=True)
         embed.add_field(name=":date:Created account:", value=user.created_at.__format__('%A, %d. %B %Y @ %H:%M:%S'), inline=True)
         await bot.say (embed=embed)
