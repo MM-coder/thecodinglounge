@@ -61,7 +61,17 @@ async def on_message(message):
 
 
 
-
+@bot.command(pass_context=True, description='Shows the server info.')
+async def server(ctx):
+    embed = discord.Embed(description="Here's what I could find:", color=0x00ff00)
+    embed.add_field(name="Name", value=ctx.message.server.name)
+    embed.add_field(name="Owner", value=ctx.message.server.owner)
+    embed.add_field(name="Region", value=ctx.message.server.region)
+    embed.add_field(name="Roles", value=len(ctx.message.server.roles))
+    embed.add_field(name="Members", value=len(ctx.message.server.members))
+    embed.add_field(name="Channels", value=len(ctx.message.server.channels))
+    embed.set_thumbnail(url=ctx.message.server.icon_url)
+    await bot.say(embed=embed)
 
 
 @bot.command(pass_context=True)
@@ -222,7 +232,7 @@ async def ban(ctx, member: discord.Member):
 @bot.command(pass_context=True)
 async def info(ctx, user: discord.Member=None):
     if user is None:
-        embed = discord.Embed(color=0x12a2b0)
+        embed = discord.Embed(color=0x7289DA)
         embed.set_author(name=ctx.message.author.display_name)
         embed.add_field(name=":desktop:ID:", value=ctx.message.author.id, inline=True)
         embed.add_field(name=":satellite:Status:", value=ctx.message.author.status, inline=True)
@@ -234,7 +244,7 @@ async def info(ctx, user: discord.Member=None):
         await asyncio.sleep(0.3)
         await bot.say(embed=embed)
     else:
-        embed = discord.Embed(color=0x12a2b0)
+        embed = discord.Embed(color=0x7289DA)
         embed.set_author(name=user.display_name)
         embed.add_field(name=":desktop:ID:", value=user.id, inline=True)
         embed.add_field(name=":satellite:Status:", value=user.status, inline=True)
@@ -249,13 +259,13 @@ async def info(ctx, user: discord.Member=None):
 @bot.command(pass_context=True)
 async def checkuser(ctx, user: discord.Member=None):
     if user is None:
-        embed = discord.Embed(color=0x12a2b0)
+        embed = discord.Embed(color=0x7289DA)
         embed.set_author(name=ctx.message.author.name ,icon_url=ctx.message.author.avatar_url)
         embed.add_field(name=":star2:Joined server:", value=user.joined_at.__format__('%A, %d. %B %Y @ %H:%M:%S'), inline=True)
         embed.add_field(name=":date:Created account:", value=user.created_at.__format__('%A, %d. %B %Y @ %H:%M:%S'), inline=True)
         await bot.say (embed=embed)
     else:
-        embed = discord.Embed(color=0x12a2b0)
+        embed = discord.Embed(color=0x7289DA)
         embed.set_author(name=ctx.message.author.name , icon_url=ctx.message.author.avatar_url)
         embed.add_field(name=":star2:Joined server:", value=user.joined_at.__format__('%A, %d. %B %Y @ %H:%M:%S'), inline=True)
         embed.add_field(name=":date:Created account:", value=user.created_at.__format__('%A, %d. %B %Y @ %H:%M:%S'), inline=True)
