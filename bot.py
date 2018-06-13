@@ -57,6 +57,7 @@ async def on_message(message):
         await bot.send_message(message.channel, ":cookie:")
     if message.content.upper() == "DADDY":
         await bot.send_message(message.channel, "<@279714095480176642>")
+    await bot.process_commands(message)
 
 
 
