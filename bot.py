@@ -61,7 +61,7 @@ async def on_message(message):
 
 
 
-@bot.command(pass_context=True, description='Shows the server info.')
+@bot.command(pass_context=True)
 async def server(ctx):
     embed = discord.Embed(description="Here's what I could find:", color=0x00ff00)
     embed.add_field(name="Name", value=ctx.message.server.name)
