@@ -50,7 +50,7 @@ async def on_command_error(ctx, error):
 @bot.event
 async def on_message(message):
     if message.content == "<@451794345629188097>":
-        await bot.send_message(message.channel, "Hey, I'm `The Coding Lounge`s custom bot!\n This bot is a branch of MMgamerBOT by <@279714095480176642> for more info visit https://mmgamerbot.com all info there\n To get familiar with my commands type `-help`\n If you want specific info about a category do\n `-help [category]`.\n It is highly recommended that you join the  Coding Lounge Server server for announcements and help : https://discord.gg/tTayqZA (permanante invite)\n By using this bot you agree that we may store some user data such as names of users, servers and channels to aid functionality.\niCoded with :heart: by <@279714095480176642> and  <@397745647723216898>")
+        await bot.send_message(message.channel, "Hey, I'm `The Coding Lounge`s custom bot!\n \n This bot is a branch of MMgamerBOT by <@279714095480176642> for more info visit https://mmgamerbot.com all info there\n \n To get familiar with my commands type `-help`\n If you want specific info about a category do\n `-help [category]`.\n \n It is highly recommended that you join the  Coding Lounge Server server for announcements and help : https://discord.gg/tTayqZA (permanant invite)\n \n By using this bot you agree that we may store some user data such as names of users, servers and channels to aid functionality.\n \n Coded with :heart: by <@279714095480176642> and  <@397745647723216898>")
     if message.content == "cookie":
         await bot.send_message(message.channel, ":cookie:")
     if message.content.upper() == "CHOCOLATE CHIP COOKIE":
