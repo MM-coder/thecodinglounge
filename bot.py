@@ -50,7 +50,21 @@ async def on_command_error(ctx, error):
 @bot.event
 async def on_message(message):
     if message.content == "<@451794345629188097>":
-        await bot.send_message(message.channel, ":wave: Hello!")
+        await bot.send_message(message.channel, "Hey, I'm `The Coding Lounge`s custom bot!
+
+This bot is a branch of MMgamerBOT by <@279714095480176642> for more info visit https://mmgamerbot.com
+
+To get familiar with my commands type `-help`
+If you want specific info about a category do
+`-help [category]`.
+
+
+It is highly recommended that you join the  Coding Lounge Server server for announcements and help : https://discord.gg/tTayqZA
+
+By using this bot you agree that we may store some user data such as names of users, servers and channels to aid functionality.
+
+Coded with :heart: by <@279714095480176642> and  <@397745647723216898>"
+ )
     if message.content == "cookie":
         await bot.send_message(message.channel, ":cookie:")
     if message.content.upper() == "CHOCOLATE CHIP COOKIE":
