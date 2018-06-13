@@ -64,7 +64,7 @@ async def on_message(message):
 
 @bot.command(pass_context=True)
 async def server(ctx):
-    embed = discord.Embed(description="Here's what I could find:", color=0x00ff00)
+    embed = discord.Embed(description="Here's what I could find:", color=0x7289DA)
     embed.add_field(name="Name", value=ctx.message.server.name)
     embed.add_field(name="Owner", value=ctx.message.server.owner)
     embed.add_field(name="Region", value=ctx.message.server.region)
@@ -93,6 +93,13 @@ async def dog(ctx):
 async def slap(ctx):
     embed=discord.Embed(title="Slap Slap Slap", color=0x7289DA)
     embed.set_image(url="https://media.giphy.com/media/s5zXKfeXaa6ZO/giphy.gif")
+    embed.set_footer(icon_url="https://i.imgur.com/yB0Lig7.png", text="Custom Bot For The Coding Lounge")
+    await bot.say(embed=embed)
+
+@bot.command(pass_context=True)
+async def gif(ctx):
+    embed=discord.Embed(title="Random GIF:", color=0x7289DA)
+    embed.set_image(url=random.choice(["https://media1.giphy.com/media/kHzsbx2ZCRfkIS5BLo/200w.gif", "https://media2.giphy.com/media/1jkYrQtUrRoI2Y9Yoa/200w.gif", "https://media0.giphy.com/media/vN3fMMSAmVwoo/200w.gif", "https://media0.giphy.com/media/WyrdDeIxGOlQA/200w.gif", "https://media2.giphy.com/media/QHE5gWI0QjqF2/giphy.gif", "https://media2.giphy.com/media/5ntdy5Ban1dIY/200w.gif"])
     embed.set_footer(icon_url="https://i.imgur.com/yB0Lig7.png", text="Custom Bot For The Coding Lounge")
     await bot.say(embed=embed)
 
@@ -151,7 +158,6 @@ async def help(ctx, module="all"):
         •`-leave` - Makes the bot leave the server
         Misc Commands:
         •`-ami <@>|<rolename>` - Tells you if you have that specific role in the server
-
         """, color=0x7289DA)
         embed.set_footer(icon_url="https://i.imgur.com/yB0Lig7.png", text="Custom Bot For The Coding Lounge")
         await bot.say(embed=embed)
