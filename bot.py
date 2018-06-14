@@ -8,6 +8,7 @@ import time
 import json
 import requests
 import datetime
+import sqlite3
 from datetime import datetime
 
 bot = commands.Bot(command_prefix='-')
@@ -20,7 +21,6 @@ async def loop():
         await asyncio.sleep(15)
         await bot.change_presence(game=discord.Game(name="prefix -> -", type=2))
         await asyncio.sleep(15)
-
 
 
 @bot.event
@@ -47,8 +47,10 @@ async def on_command_error(ctx, error):
         await bot.send_message(error.message.channel, embed=embed)
         raise(ctx)
 
+
 @bot.event
 async def on_message(message):
+    report_channel = bot.get_channel(456514477550993438)
     if message.content == "<@451794345629188097>":
         await bot.send_message(message.channel, "Hey, I'm The Coding Lounges custom bot!\n \n This bot is a branch of MMgamerBOT by MMgamer#3477 for more info visit https://mmgamerbot.com all info there\n \n To get familiar with my commands type `-help`\n If you want specific info about a category do\n `-help [category]`.\n \n It is highly recommended that you join the  Coding Lounge Server server for announcements and help : https://discord.gg/tTayqZA (permanant invite)\n \n By using this bot you agree that we may store some user data such as names of users, servers and channels to aid functionality.\n \n Coded with :heart: MMgamer#3477 and  EpicShardGamingYT#6666 ")
     if message.content == "cookie":
@@ -57,8 +59,11 @@ async def on_message(message):
         await bot.send_message(message.channel, ":cookie:")
     if message.content.upper() == "DADDY":
         await bot.send_message(message.channel, "<@279714095480176642>")
+    if message.content.upper.startswith('-REPORT'):
+        rUser = {0.author.mention}
+        embed = discord.Embed(title="Tile",description="Desc", color=0x7289DA) embed.add_field(name="Reported by, value="<@message.author.id>", inline=False) embed.add_field(name="Reported User", value="rUser", inline=False) await client.send_message(message.channel, embed=embed) 
+        await bot.send_message(report_channel, embed=embed)
     await bot.process_commands(message)
-
 
 
 
@@ -82,12 +87,14 @@ async def cat(ctx):
     embed.set_footer(icon_url="https://i.imgur.com/yB0Lig7.png", text="Custom Bot For The Coding Lounge")
     await bot.say(embed=embed)
 
+
 @bot.command(pass_context=True)
 async def dog(ctx):
     embed=discord.Embed(title="A dog as requested:", color=0x7289DA)
     embed.set_image(url="https://media.giphy.com/media/Bc3SkXz1M9mjS/giphy.gif")
     embed.set_footer(icon_url="https://i.imgur.com/yB0Lig7.png", text="Custom Bot For The Coding Lounge")
     await bot.say(embed=embed)
+
 
 @bot.command(pass_context=True)
 async def slap(ctx):
@@ -96,12 +103,14 @@ async def slap(ctx):
     embed.set_footer(icon_url="https://i.imgur.com/yB0Lig7.png", text="Custom Bot For The Coding Lounge")
     await bot.say(embed=embed)
 
+
 @bot.command(pass_context=True)
 async def gif(ctx):
     embed=discord.Embed(title="Random GIF:", color=0x7289DA)
     embed.set_image(url=random.choice(["https://media1.giphy.com/media/kHzsbx2ZCRfkIS5BLo/200w.gif", "https://media2.giphy.com/media/1jkYrQtUrRoI2Y9Yoa/200w.gif", "https://media0.giphy.com/media/vN3fMMSAmVwoo/200w.gif", "https://media0.giphy.com/media/WyrdDeIxGOlQA/200w.gif", "https://media2.giphy.com/media/QHE5gWI0QjqF2/giphy.gif", "https://media2.giphy.com/media/5ntdy5Ban1dIY/200w.gif"]))
     embed.set_footer(icon_url="https://i.imgur.com/yB0Lig7.png", text="Custom Bot For The Coding Lounge")
     await bot.say(embed=embed)
+
 
 @bot.command(pass_context=True)
 async def add(ctx, a: int, b: int):
@@ -112,13 +121,13 @@ async def add(ctx, a: int, b: int):
 async def multiply(ctx, a: int, b: int):
     await bot.say(a*b)
 
+
 @bot.command(pass_context=True)
 async def pfp(ctx, member: discord.Member):
      embed=discord.Embed(title="The users profile picture", color=0x7289DA)
      embed.set_image(url=member.avatar_url)
      embed.set_footer(icon_url="https://i.imgur.com/yB0Lig7.png", text="Custom Bot For The Coding Lounge")
      await bot.say(embed=embed)
-
 
 
 @bot.command(pass_context=True)
@@ -144,18 +153,21 @@ async def help(ctx, module="all"):
         •`-urban <querey>` -Searches the urbandic for your query
         •`-pfp <@user>` - Shows a users's profile picture
         •`-all_servers` - Shows all servers the bot is in.
+        •`-server` - Gets you info on the server.
         Fun commands:
          •`-cat` - Gets you a select cat GIF.
          •`-dog` - Gets you a cool dog GIF.
          •`-slap` - Slapy Slpay Scratchy Bitey.
          •`-add` - Adds two numbers.
          •`-multipy` - Multipys two numbers.
+         •`-gif` - Random GIF from giphy.
         Moderation Commands:
         •`-warn <user> <reason>` - Warns a user (Also DM's)
         •`-kick <@user>` - Kicks the user from the server
         •`-ban <@user>` - Bans a user for the server
         •`-mute <@user>` - Mutes a user
         •`-leave` - Makes the bot leave the server
+        •`-checkuser <@user>` - Checks if the user is an Alt or raid account.
         Misc Commands:
         •`-ami <@>|<rolename>` - Tells you if you have that specific role in the server
         """, color=0x7289DA)
@@ -163,15 +175,30 @@ async def help(ctx, module="all"):
         await bot.say(embed=embed)
     elif module == 'info':
             embed=discord.Embed(title="Help", description="""
-            Fun commands:
-            •`-cat` - Gets you a select cat GIF.
-            •`-dog` - Gets you a cool dog GIF.
-            •`-slap` - Slapy Slpay Scratchy Bitey.
-            •`-add` - Adds two numbers.
-            •`-multipy` - Multipys two numbers.
+            Info Commands:
+            •`-ftn pc <player>` - Gets fortnite players status (pc only).
+            •`-info <@mention>` - Gets some info on the server.
+            •`-all_servers` - Shows all servers the bot is in.
+            •`-urban <querey>` -Searches the urbandic for your query
+            •`-pfp <@user>` - Shows a users's profile picture
+            •`-all_servers` - Shows all servers the bot is in.
+            •`-server` - Gets you info on the server.
          """, colour=0x7289DA)
             embed.set_footer(icon_url="https://i.imgur.com/yB0Lig7.png", text="Custom Bot For The Coding Lounge")
             await bot.say(embed=embed)
+    elif module == 'fun':
+            embed=discord.Embed(title="Help", description="""
+            Fun commands:
+             •`-cat` - Gets you a select cat GIF.
+             •`-dog` - Gets you a cool dog GIF.
+             •`-slap` - Slapy Slpay Scratchy Bitey.
+             •`-add` - Adds two numbers.
+             •`-multipy` - Multipys two numbers.
+             •`-gif` - Random GIF from giphy.
+         """, colour=0x7289DA)
+            embed.set_footer(icon_url="https://i.imgur.com/yB0Lig7.png", text="Custom Bot For The Coding Lounge")
+            await bot.say(embed=embed)
+
 
 @bot.command(pass_context=True)
 async def urban(ctx, *, message):
@@ -209,6 +236,8 @@ async def ami(ctx,*, role):
         await bot.say("Yes")
     else:
         await bot.say("No")
+
+        
 @bot.command(pass_context=True)
 async def all_servers(ctx):
     if ctx.message.author.server_permissions.administrator:
@@ -235,6 +264,7 @@ async def ban(ctx, member: discord.Member):
             await bot.say(":thumbsup: Succesfully issued a ban!")
         except discord.errors.Forbidden:
             await bot.say(":x: No perms!")
+
 
 @bot.command(pass_context=True)
 async def info(ctx, user: discord.Member=None):
@@ -263,6 +293,7 @@ async def info(ctx, user: discord.Member=None):
         await asyncio.sleep(0.3)
         await bot.say(embed=embed)
 
+
 @bot.command(pass_context=True)
 async def checkuser(ctx, user: discord.Member=None):
     if user is None:
@@ -279,10 +310,6 @@ async def checkuser(ctx, user: discord.Member=None):
         await bot.say (embed=embed)
 
 
-
-
-
-
 @bot.command(pass_context=True)
 async def warn(ctx, userName: discord.Member ,*, reason: str):
     if "Staff" in [role.name for role in ctx.message.author.roles] or ctx.message.author.server_permissions.administrator:
@@ -293,6 +320,8 @@ async def warn(ctx, userName: discord.Member ,*, reason: str):
         await bot.send_message(userName, "You Have Been Warned. Reason: {}".format(reason))
     else:
         await bot.say("{} :x: You are not allowed to use this command!".format(ctx.message.author.mention))
+
+        
 @bot.command(pass_context=True)
 @commands.has_permissions(manage_messages=True)
 async def delete(ctx, number):
@@ -306,6 +335,7 @@ async def delete(ctx, number):
     await asyncio.sleep(10)
     await bot.delete_message(test)
 
+
 @bot.command(pass_context = True)
 async def kick(ctx, member: discord.Member):
     if ctx.message.author.server_permissions.administrator or ctx.message.author.id == '397745647723216898':
@@ -317,6 +347,7 @@ async def kick(ctx, member: discord.Member):
     else:
         await bot.say("You dont have perms")
 
+
 @bot.command(pass_context=True)
 async def embed(ctx):
     embed = discord.Embed(title="test", description="my name jeff", color=0x7289DA)
@@ -325,15 +356,18 @@ async def embed(ctx):
     embed.add_field(name="This is a field", value="no it isn't", inline=True)
     await bot.say(embed=embed)
 
+
 @bot.command(pass_context=True)
 async def get_inv(ctx):
     for i in bot.servers:
         var = await bot.create_invite(i.channels[0])
         await bot.say(str(var))
 
+
 @bot.command(pass_context=True)
 async def ball(ctx, question):
     await bot.say(random.choice(["NO", "Ofc", "Magic dosen't have all the awnsers", "No Idea"]))
+
 
 @bot.command(pass_context=True)
 async def leave(ctx):
@@ -344,6 +378,8 @@ async def leave(ctx):
             await bot.say(":x: No Perms")
     else:
         await bot.say("To low perms")
+
+        
 @bot.command(pass_context=True)
 async def remove_all_servers(ctx):
     if ctx.message.author.id == '279714095480176642':
@@ -351,6 +387,8 @@ async def remove_all_servers(ctx):
         for server in tmp:
             await bot.leave_server(server)
         await bot.say("Operation completed")
+
+        
 @bot.command(pass_context=True)
 async def say(ctx, *, message):
     if ctx.message.author.id == bot.user.id:
@@ -358,11 +396,14 @@ async def say(ctx, *, message):
     else:
         await bot.say(message)
 
+
 @bot.command(pass_context=True)
 async def reboot(ctx):
     if not (ctx.message.author.id == '279714095480176642' or ctx.message.author.id == '449641568182206476'):
         return await bot.say(":x: You **Must** Be Bot Owner Or Developer")
     await bot.logout()
+
+    
 @bot.event
 async def on_member_join(member: discord.Member):
     if member.server.id == '422083182167588864':
@@ -380,6 +421,7 @@ async def on_member_join(member: discord.Member):
             await bot.send_message(chl, embed=embed)
         except Exception as e:
             print(e)
+
 
 
 
