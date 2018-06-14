@@ -52,7 +52,7 @@ async def on_command_error(ctx, error):
 async def on_message(message):
     report_channel = bot.get_channel(456514477550993438)
     if message.content == "<@451794345629188097>":
-        await bot.send_message(message.channel, "Hey, I'm The Coding Lounges custom bot!\n \n This bot is a branch of MMgamerBOT by MMgamer#3477 for more info visit https://mmgamerbot.com all info there\n \n To get familiar with my commands type `-help`\n If you want specific info about a category do\n `-help [category]`.\n \n It is highly recommended that you join the  Coding Lounge Server server for announcements and help : https://discord.gg/tTayqZA (permanant invite)\n \n By using this bot you agree that we may store some user data such as names of users, servers and channels to aid functionality.\n \n Coded with :heart: MMgamer#3477 and  EpicShardGamingYT#6666 ")
+        await bot.send_message(message.channel, "Hey, I'm The Coding Lounges custom bot!\n \n This bot is a branch of MMgamerBOT by MMgamer#3477 for more info visit https://mmgamerbot.com all info there\n \n To get familiar with my commands type `-help`\n If you want specific info about a category do\n `-help [category]`.\n \n It is highly recommended that you join the  Coding Lounge Server server for announcements and help : https://discord.gg/tTayqZA (permanant invite)\n \n By using this bot you agree that we may store some user data such as names of users, servers and channels to aid functionality Do `-tos`for more.\n \n Coded with :heart: MMgamer#3477 and  EpicShardGamingYT#6666 ")
     if message.content == "cookie":
         await bot.send_message(message.channel, ":cookie:")
     if message.content.upper() == "CHOCOLATE CHIP COOKIE":
@@ -112,6 +112,11 @@ async def gif(ctx):
     embed.set_footer(icon_url="https://i.imgur.com/yB0Lig7.png", text="Custom Bot For The Coding Lounge")
     await bot.say(embed=embed)
 
+@bot.command
+async def tos(ctx):
+    embed=discord.Embed(title="TOS", description=":shield: Terms of Service\n \n On August 20th, 2017 Discord updated their Terms of Service. Bot owners must now notify their users what kind of user data they store.\nBy using this bot you agree that we may store some user data, such as** names of users, servers and channels**.", color=0x7289DA)
+    embed.set_footer(icon_url="https://i.imgur.com/yB0Lig7.png", text="Custom Bot For The Coding Lounge")
+    await bot.say(embed=embed)
 
 @bot.command(pass_context=True)
 async def add(ctx, a: int, b: int):
@@ -130,6 +135,12 @@ async def pfp(ctx, member: discord.Member):
      embed.set_footer(icon_url="https://i.imgur.com/yB0Lig7.png", text="Custom Bot For The Coding Lounge")
      await bot.say(embed=embed)
 
+@bot.command()
+async def meme(ctx, *choices: str):
+    embed = discord.Embed(colour=0x7289DA)
+    embed.set_image(url=random.choice([ "https://max-media.imgix.net/transfers/2016/6/2/35493eb9ea00b43d76f504388a7d98eac01d9471.jpg?w=640&fit=max&auto=format&q=70", "https://max-media.imgix.net/transfers/2016/6/2/7b4575d386865d39cf75d5446516fa638828622e.png?w=640&fit=max&auto=format&q=70", "https://max-media.imgix.net/transfers/2016/6/2/34df8440609218f69c7466a1f19ab5aef6120596.png?w=640&fit=max&auto=format&q=70", "https://max-media.imgix.net/transfers/2016/6/2/7d41985b2e8962398df13d1272a6c258470ed53d.jpg?w=640&fit=max&auto=format&q=70", "https://www.google.com/url?sa=i&rct=j&q=&esrc=s&source=images&cd=&cad=rja&uact=8&ved=2ahUKEwi0k8_b0NPbAhWDaVAKHWdJAOkQjRx6BAgBEAU&url=https%3A%2F%2Fwww.memecenter.com%2Fsearch%2Fcheese&psig=AOvVaw3u9-NYrnxSlBDWcRFEoGYG&ust=1529081497518231"]))
+    embed.set_footer(icon_url="https://i.imgur.com/yB0Lig7.png", text="Custom Bot For The Coding Lounge")
+    await bot.say(embed=embed)
 
 @bot.command(pass_context=True)
 async def help(ctx, module="all"):
@@ -162,6 +173,7 @@ async def help(ctx, module="all"):
          •`-add` - Adds two numbers.
          •`-multipy` - Multipys two numbers.
          •`-gif` - Random GIF from giphy.
+         •`-meme` - Random Meme.
         Moderation Commands:
         •`-warn <user> <reason>` - Warns a user (Also DM's)
         •`-kick <@user>` - Kicks the user from the server
@@ -171,6 +183,7 @@ async def help(ctx, module="all"):
         •`-checkuser <@user>` - Checks if the user is an Alt or raid account.
         Misc Commands:
         •`-ami <@>|<rolename>` - Tells you if you have that specific role in the server
+        •`-tos` - Shows the bots Terms Of Service.
         """, color=0x7289DA)
         embed.set_footer(icon_url="https://i.imgur.com/yB0Lig7.png", text="Custom Bot For The Coding Lounge")
         await bot.say(embed=embed)
