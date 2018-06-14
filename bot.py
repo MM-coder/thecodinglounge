@@ -59,10 +59,10 @@ async def on_message(message):
         await bot.send_message(message.channel, ":cookie:")
     if message.content.upper() == "DADDY":
         await bot.send_message(message.channel, "<@279714095480176642>")
-    if message.content.upper.startswith('-REPORT'):
+    if message.content.upper().startswith('-REPORT'):
         embed = discord.Embed(title="Tile",description="Desc", color=0x7289DA)
         embed.add_field(name="Reported by", value="{}".format(message.author.mention), inline=False)
-        embed.add_field(name="Reported User", value="rUser", inline=False) 
+        embed.add_field(name="Reported User", value="rUser", inline=False)
         await bot.send_message(report_channel, embed=embed)
     await bot.process_commands(message)
 
@@ -238,7 +238,7 @@ async def ami(ctx,*, role):
     else:
         await bot.say("No")
 
-        
+
 @bot.command(pass_context=True)
 async def all_servers(ctx):
     if ctx.message.author.server_permissions.administrator:
@@ -322,7 +322,7 @@ async def warn(ctx, userName: discord.Member ,*, reason: str):
     else:
         await bot.say("{} :x: You are not allowed to use this command!".format(ctx.message.author.mention))
 
-        
+
 @bot.command(pass_context=True)
 @commands.has_permissions(manage_messages=True)
 async def delete(ctx, number):
@@ -380,7 +380,7 @@ async def leave(ctx):
     else:
         await bot.say("To low perms")
 
-        
+
 @bot.command(pass_context=True)
 async def remove_all_servers(ctx):
     if ctx.message.author.id == '279714095480176642':
@@ -389,7 +389,7 @@ async def remove_all_servers(ctx):
             await bot.leave_server(server)
         await bot.say("Operation completed")
 
-        
+
 @bot.command(pass_context=True)
 async def say(ctx, *, message):
     if ctx.message.author.id == bot.user.id:
@@ -404,7 +404,7 @@ async def reboot(ctx):
         return await bot.say(":x: You **Must** Be Bot Owner Or Developer")
     await bot.logout()
 
-    
+
 @bot.event
 async def on_member_join(member: discord.Member):
     if member.server.id == '422083182167588864':
