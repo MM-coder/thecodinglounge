@@ -61,7 +61,9 @@ async def on_message(message):
         await bot.send_message(message.channel, "<@279714095480176642>")
     if message.content.upper.startswith('-REPORT'):
         rUser = {0.author.mention}
-        embed = discord.Embed(title="Tile",description="Desc", color=0x7289DA) embed.add_field(name="Reported by, value="<@message.author.id>", inline=False) embed.add_field(name="Reported User", value="rUser", inline=False) await client.send_message(message.channel, embed=embed) 
+        embed = discord.Embed(title="Tile",description="Desc", color=0x7289DA)
+        embed.add_field(name="Reported by", value="{}".format(message.author.mention), inline=False)
+        embed.add_field(name="Reported User", value="rUser", inline=False) 
         await bot.send_message(report_channel, embed=embed)
     await bot.process_commands(message)
 
