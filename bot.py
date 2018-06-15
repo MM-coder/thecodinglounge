@@ -122,7 +122,7 @@ async def gif(ctx):
     embed.set_footer(icon_url="https://i.imgur.com/yB0Lig7.png", text="Custom Bot For The Coding Lounge")
     await bot.say(embed=embed)
 
-@bot.command
+@bot.command(pass_context=True)
 async def tos(ctx):
     embed=discord.Embed(title="TOS", description=":shield: Terms of Service\n \n On August 20th, 2017 Discord updated their Terms of Service. Bot owners must now notify their users what kind of user data they store.\nBy using this bot you agree that we may store some user data, such as** names of users, servers and channels**.", color=0x7289DA)
     embed.set_footer(icon_url="https://i.imgur.com/yB0Lig7.png", text="Custom Bot For The Coding Lounge")
@@ -464,6 +464,22 @@ async def on_member_join(member: discord.Member):
         except Exception as e:
             print(e)
 
+
+            #Giphy API!
+
+            #Try
+
+            #giphyquery
+            #giphyapi = "https://api.giphy.com/v1/search?"
+            #giphyKey = "&api_key=1OoEB0hlkOhBe3lb7hOOoDVr7PwUFnX"
+            #querysearch = ("&q=" + giphyquery)
+            #giphyURL = giphyapi + giphykey + querysearch
+
+            #Invalid API Key.
+            
+            data = json.loads(urllib.urlopen("http://api.giphy.com/v1/gifs/search?q=hmm&api_key=10oEBOhlkOhBe3lBd7hO0oDVr7PwUFnX&limit=5").read())
+            print json.dumps(data, sort_keys=True, indent=4)
+            print(data.data[0].images.original.url)
 
 
 
