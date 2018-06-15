@@ -127,7 +127,7 @@ async def tos(ctx):
     await bot.say(embed=embed)
 
 @bot.command(pass_context=True)
-async def bird(self, ctx):
+async def bird(ctx):
     try:
         async with aiohttp.ClientSession() as session:
             async with session.get('http://random.birb.pw/tweet/') as resp:
