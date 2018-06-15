@@ -140,7 +140,7 @@ async def bird(ctx):
                 embed.timestamp = datetime.utcnow()
                 await bot.say(embed=embed)
     except:
-        await ctx.send(':WrongMark: **API is unavailable now. Try again later!**')
+        await bot.say(':WrongMark: **API is unavailable now. Try again later!**')
 
 @bot.command(pass_context=True)
 async def add(ctx, a: int, b: int):
@@ -458,9 +458,9 @@ async def on_member_join(member: discord.Member):
             await bot.send_message(chl, embed=embed)
         except Exception as e:
             print(e)
+            
 
-
-
+            
 
 
 
