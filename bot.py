@@ -303,12 +303,15 @@ async def ban(ctx, user: discord.Member):
     if "451804048488792106" in [role.id for role in ctx.message.author.roles]:
         await bot.ban(user)
         await bot.say(f"{user.name} Has been Banned!")
-
+    else
+        await bot.say(":x: No Permissions")
 @bot.command(pass_context=True)
 async def kick(ctx, user: discord.User, *, reason: str):
     if "451804048488792106" in [role.id for role in ctx.message.author.roles]:
         await bot.kick(user)
         await bot.say(f"boom, user has been kicked for reason: {reason}")
+    else
+        await bot.say(":x: No Permissions")
 
 @bot.command(pass_context=True)
 async def info(ctx, user: discord.Member=None):
@@ -458,10 +461,17 @@ async def on_member_join(member: discord.Member):
             await bot.send_message(chl, embed=embed)
         except Exception as e:
             print(e)
-            ##giphyquery
-            #giphyapi = "https://api.giphy.com/v1/search"
-            #giphyKey = "1OoEB0hlkOhBe3lb7hOOoDVr7PwUFnX"
+
+            
+            #Giphy API!
+
+            #giphyquery
+            #giphyapi = "https://api.giphy.com/v1/search?"
+            #giphyKey = "&api_key=1OoEB0hlkOhBe3lb7hOOoDVr7PwUFnX"
             #querysearch = ("&q=" + giphyquery)
+            
+
+
 
 
 
