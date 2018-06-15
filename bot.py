@@ -458,11 +458,10 @@ async def on_member_join(member: discord.Member):
             await bot.send_message(chl, embed=embed)
         except Exception as e:
             print(e)
-
-            giphyquery
-            giphyapi = "https://api.giphy.com/v1/search"
-            giphyKey = "1OoEB0hlkOhBe3lb7hOOoDVr7PwUFnX"
-            querysearch = "&q=" + giphyquery
+            ##giphyquery
+            #giphyapi = "https://api.giphy.com/v1/search"
+            #giphyKey = "1OoEB0hlkOhBe3lb7hOOoDVr7PwUFnX"
+            #querysearch = ("&q=" + giphyquery)
 
 
 
