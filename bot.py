@@ -462,7 +462,7 @@ async def on_member_join(member: discord.Member):
         except Exception as e:
             print(e)
 
-            
+
             #Giphy API!
 
             #giphyquery
@@ -470,8 +470,10 @@ async def on_member_join(member: discord.Member):
             #giphyKey = "&api_key=1OoEB0hlkOhBe3lb7hOOoDVr7PwUFnX"
             #querysearch = ("&q=" + giphyquery)
             #giphyURL = giphyapi + giphykey + querysearch
-            
-            
+            import urllib,json
+            data = json.loads(urllib.urlopen("http://api.giphy.com/v1/gifs/search?q=hmm&api_key=1OoEB0hlkOhBe3lb7hOOoDVr7PwUFnX&limit=5").read())
+            print json.dumps(data, sort_keys=True, indent=4)
+
 
 
 
