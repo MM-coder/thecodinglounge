@@ -139,8 +139,8 @@ async def bird(ctx):
                 embed.set_footer(text=f"{self.bot.user.name}")
                 embed.timestamp = datetime.utcnow()
                 await bot.say(embed=embed)
-    except:
-        await bot.say(':WrongMark: **API is unavailable now. Try again later!**')
+    except Exception as e:
+        await bot.say(':negative_squared_cross_mark: **API is unavailable now. Try again later!**' + e)
 
 @bot.command(pass_context=True)
 async def add(ctx, a: int, b: int):
@@ -458,10 +458,11 @@ async def on_member_join(member: discord.Member):
             await bot.send_message(chl, embed=embed)
         except Exception as e:
             print(e)
-            
 
-            
-
+            giphyquery
+            giphyapi = "https://api.giphy.com/v1/search"
+            giphyKey = "1OoEB0hlkOhBe3lb7hOOoDVr7PwUFnX"
+            querysearch = "&q=" + giphyquery
 
 
 
