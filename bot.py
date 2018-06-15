@@ -66,8 +66,16 @@ async def on_message(message):
         await bot.send_message(report_channel, embed=embed)
     await bot.process_commands(message)
 
+## report_channel = bot.get_channel(456514477550993438)
 
-
+@bot.command(pass_context=True)
+async def report(ctx,member=None):
+    if member == None:
+        return await bot.say("No member listed")
+    else:
+        chl = bot.get_channel('456514477550993438')
+        await bot.say("report sent")
+        await bot.send_message(chl, "{0.mention}".format(chl))
 @bot.command(pass_context=True)
 async def server(ctx):
     embed = discord.Embed(description="Here's what I could find:", color=0x7289DA)
@@ -117,6 +125,22 @@ async def tos(ctx):
     embed=discord.Embed(title="TOS", description=":shield: Terms of Service\n \n On August 20th, 2017 Discord updated their Terms of Service. Bot owners must now notify their users what kind of user data they store.\nBy using this bot you agree that we may store some user data, such as** names of users, servers and channels**.", color=0x7289DA)
     embed.set_footer(icon_url="https://i.imgur.com/yB0Lig7.png", text="Custom Bot For The Coding Lounge")
     await bot.say(embed=embed)
+
+@bot.command(pass_context=True)
+async def bird(self, ctx):
+    try:
+        async with aiohttp.ClientSession() as session:
+            async with session.get('http://random.birb.pw/tweet/') as resp:
+                _url = (await resp.read()).decode("utf-8")
+                url = f"http://random.birb.pw/img/{str(_url)}"
+                embed = discord.Embed(color=0x000000)
+                embed.description = "**Random bird image :bird:**"
+                embed.set_image(url=url)
+                embed.set_footer(text=f"{self.bot.user.name}")
+                embed.timestamp = datetime.utcnow()
+                await bot.say(embed=embed)
+    except:
+        await ctx.send(':WrongMark: **API is unavailable now. Try again later!**')
 
 @bot.command(pass_context=True)
 async def add(ctx, a: int, b: int):
@@ -262,6 +286,9 @@ async def all_servers(ctx):
             tmp += 1
         await bot.say(embed=embed)
 
+@bot.event
+async def on_server_channel_create(channel):
+    await bot.send_message(channel, random.choice(['First', 'I am first and u suck', 'i seriusly dont have a life', 'Calm your fucking tits when you’re being such a bitch for jerking off']))
 
 @bot.command(pass_context=True)
 async def ping(ctx):
@@ -270,15 +297,18 @@ async def ping(ctx):
         t2 = time.perf_counter()
         await bot.say("Ping: {}ms".format(round((t2-t1)*1000)))
         await bot.delete_message(tmp)
-@bot.command(pass_context = True)
-async def ban(ctx, member: discord.Member):
-    if ctx.message.author.server_permissions.administrator or ctx.message.author.id == '397745647723216898':
-        try:
-            await bot.ban(member)
-            await bot.say(":thumbsup: Succesfully issued a ban!")
-        except discord.errors.Forbidden:
-            await bot.say(":x: No perms!")
 
+@bot.command(pass_context=True)
+async def ban(ctx, user: discord.Member):
+    if "451804048488792106" in [role.id for role in ctx.message.author.roles]:
+        await bot.ban(user)
+        await bot.say(f"{user.name} Has been Banned!")
+
+@bot.command(pass_context=True)
+async def kick(ctx, user: discord.User, *, reason: str):
+    if "451804048488792106" in [role.id for role in ctx.message.author.roles]:
+        await bot.kick(user)
+        await bot.say(f"boom, user has been kicked for reason: {reason}")
 
 @bot.command(pass_context=True)
 async def info(ctx, user: discord.Member=None):
@@ -289,6 +319,8 @@ async def info(ctx, user: discord.Member=None):
         embed.add_field(name=":satellite:Status:", value=ctx.message.author.status, inline=True)
         embed.add_field(name=":star2:Joined server::", value=ctx.message.author.joined_at.__format__('%A, %d. %B %Y @ %H:%M:%S'), inline=True)
         embed.add_field(name=":date:Created account:", value=ctx.message.author.created_at.__format__('%A, %d. %B %Y @ %H:%M:%S'), inline=True)
+        embed.add_field(name=":bust_in_silhouette:Nickname:", value=user.display_name)
+        embed.add_field(name=":robot:Is Bot:", value=user.bot)
         embed.add_field(name=':ballot_box_with_check: Top role:', value=ctx.message.author.top_role.name, inline=True)
         embed.add_field(name=':video_game: Playing:', value=ctx.message.author.game, inline=True)
         embed.set_thumbnail(url=ctx.message.author.avatar_url)
@@ -296,14 +328,16 @@ async def info(ctx, user: discord.Member=None):
         await bot.say(embed=embed)
     else:
         embed = discord.Embed(color=0x7289DA)
-        embed.set_author(name=user.display_name)
-        embed.add_field(name=":desktop:ID:", value=user.id, inline=True)
-        embed.add_field(name=":satellite:Status:", value=user.status, inline=True)
-        embed.add_field(name=":star2:Joined server:", value=user.joined_at.__format__('%A, %d. %B %Y @ %H:%M:%S'), inline=True)
-        embed.add_field(name=":date:Created account:", value=user.created_at.__format__('%A, %d. %B %Y @ %H:%M:%S'), inline=True)
-        embed.add_field(name=':ballot_box_with_check: Top role:', value=user.top_role.name, inline=True)
-        embed.add_field(name=':video_game: Playing:', value=user.game, inline=True)
-        embed.set_thumbnail(url=user.avatar_url)
+        embed.set_author(name=ctx.message.author.display_name)
+        embed.add_field(name=":desktop:ID:", value=ctx.message.author.id, inline=True)
+        embed.add_field(name=":satellite:Status:", value=ctx.message.author.status, inline=True)
+        embed.add_field(name=":star2:Joined server::", value=ctx.message.author.joined_at.__format__('%A, %d. %B %Y @ %H:%M:%S'), inline=True)
+        embed.add_field(name=":date:Created account:", value=ctx.message.author.created_at.__format__('%A, %d. %B %Y @ %H:%M:%S'), inline=True)
+        embed.add_field(name=":bust_in_silhouette:Nickname:", value=user.display_name)
+        embed.add_field(name=":robot:Is Bot:", value=user.bot)
+        embed.add_field(name=':ballot_box_with_check: Top role:', value=ctx.message.author.top_role.name, inline=True)
+        embed.add_field(name=':video_game: Playing:', value=ctx.message.author.game, inline=True)
+        embed.set_thumbnail(url=ctx.message.author.avatar_url)
         await asyncio.sleep(0.3)
         await bot.say(embed=embed)
 
@@ -349,17 +383,6 @@ async def delete(ctx, number):
     await asyncio.sleep(10)
     await bot.delete_message(test)
 
-
-@bot.command(pass_context = True)
-async def kick(ctx, member: discord.Member):
-    if ctx.message.author.server_permissions.administrator or ctx.message.author.id == '397745647723216898':
-        try:
-            await bot.kick(member)
-            await bot.say("Succesfully kicked that member!")
-        except discord.errors.Forbidden:
-            await bot.say(":x: No permisson!")
-    else:
-        await bot.say("You dont have perms")
 
 
 @bot.command(pass_context=True)
