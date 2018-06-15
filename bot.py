@@ -9,7 +9,9 @@ import json
 import requests
 import datetime
 import sqlite3
+import urllib,json
 from datetime import datetime
+
 
 bot = commands.Bot(command_prefix='-')
 bot.remove_command('help')
@@ -310,7 +312,7 @@ async def kick(ctx, user: discord.User, *, reason: str):
     if "451804048488792106" in [role.id for role in ctx.message.author.roles]:
         await bot.kick(user)
         await bot.say(f"boom, user has been kicked for reason: {reason}")
-    else
+    else:
         await bot.say(":x: No Permissions")
 
 @bot.command(pass_context=True)
@@ -461,18 +463,6 @@ async def on_member_join(member: discord.Member):
             await bot.send_message(chl, embed=embed)
         except Exception as e:
             print(e)
-
-
-            #Giphy API!
-
-            #giphyquery
-            #giphyapi = "https://api.giphy.com/v1/search?"
-            #giphyKey = "&api_key=1OoEB0hlkOhBe3lb7hOOoDVr7PwUFnX"
-            #querysearch = ("&q=" + giphyquery)
-            #giphyURL = giphyapi + giphykey + querysearch
-            import urllib,json
-            data = json.loads(urllib.urlopen("http://api.giphy.com/v1/gifs/search?q=hmm&api_key=1OoEB0hlkOhBe3lb7hOOoDVr7PwUFnX&limit=5").read())
-            print json.dumps(data, sort_keys=True, indent=4)
 
 
 
