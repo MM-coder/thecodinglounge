@@ -477,9 +477,9 @@ async def on_member_join(member: discord.Member):
 
             #Invalid API Key.
             
-            data = json.loads(urllib.urlopen("http://api.giphy.com/v1/gifs/search?q=hmm&api_key=10oEBOhlkOhBe3lBd7hO0oDVr7PwUFnX&limit=5").read())
-            print json.dumps(data, sort_keys=True, indent=4)
-            print(data.data[0].images.original.url)
+            #data = json.loads(urllib.urlopen("http://api.giphy.com/v1/gifs/search?q=hmm&api_key=10oEBOhlkOhBe3lBd7hO0oDVr7PwUFnX&limit=5").read())
+            #print json.dumps(data, sort_keys=True, indent=4)
+            #print(data.data[0].images.original.url)
 
 
 
