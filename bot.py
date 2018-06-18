@@ -11,7 +11,6 @@ import datetime
 import sqlite3
 import urllib,json
 from datetime import datetime
-from PIL import Image, ImageDraw
 
 
 bot = commands.Bot(command_prefix='-')
