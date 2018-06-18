@@ -11,6 +11,7 @@ import datetime
 import sqlite3
 import urllib,json
 from datetime import datetime
+from PIL import Image, ImageDraw
 
 
 bot = commands.Bot(command_prefix='-')
@@ -124,7 +125,7 @@ async def gif(ctx):
 
 @bot.command(pass_context=True)
 async def tos(ctx):
-    embed=discord.Embed(title="TOS", description=":shield: Terms of Service\n \n On August 20th, 2017 Discord updated their Terms of Service. Bot owners must now notify their users what kind of user data they store.\nBy using this bot you agree that we may store some user data, such as** names of users, servers and channels**.", color=0x7289DA)
+    embed=discord.Embed(title=":shield: Terms of Service", description="On August 20th, 2017 Discord updated their Terms of Service. Bot owners must now notify their users what kind of user data they store.\nBy using this bot you agree that we may store some user data, such as** names of users, servers and channels**.", color=0x7289DA)
     embed.set_footer(icon_url="https://i.imgur.com/yB0Lig7.png", text="Custom Bot For The Coding Lounge")
     await bot.say(embed=embed)
 
@@ -311,7 +312,8 @@ async def ban(ctx, user: discord.Member):
 async def kick(ctx, user: discord.User, *, reason: str):
     if "451804048488792106" in [role.id for role in ctx.message.author.roles]:
         await bot.kick(user)
-        await bot.say(f"boom, user has been kicked for reason: {reason}")
+        await bot.say(f"user has been kicked for reason: {reason}")
+        await bot.whisper("You have been Kicked for: {reason}")
     else:
         await bot.say(":x: No Permissions")
 
@@ -475,14 +477,14 @@ async def on_member_join(member: discord.Member):
             #querysearch = ("&q=" + giphyquery)
             #giphyURL = giphyapi + giphykey + querysearch
 
-            #Invalid API Key.
-            
-            #data = json.loads(urllib.urlopen("http://api.giphy.com/v1/gifs/search?q=hmm&api_key=10oEBOhlkOhBe3lBd7hO0oDVr7PwUFnX&limit=5").read())
+
+
+           #data = json.loads(urllib.urlopen("http://api.giphy.com/v1/gifs/search?q=hmm&api_key=10oEBOhlkOhBe3lBd7hO0oDVr7PwUFnX&limit=5").read())
             #print json.dumps(data, sort_keys=True, indent=4)
             #print(data.data[0].images.original.url)
+           #img = Image.new(mode, size, color)
 
-
-
+                #I'm gonna finish this shit later, gtg.
 
 
 
