@@ -9,8 +9,9 @@ import json
 import requests
 import datetime
 import sqlite3
-import urllib,json
+import urllib
 from datetime import datetime
+from PIL import Image, ImageDraw
 
 
 bot = commands.Bot(command_prefix='-')
@@ -305,8 +306,11 @@ async def ban(ctx, user: discord.Member):
     if "451804048488792106" in [role.id for role in ctx.message.author.roles]:
         await bot.ban(user)
         await bot.say(f"{user.name} Has been Banned!")
+        await bot.whisper("You have been Banned!")
     else:
         await bot.say(":x: No Permissions")
+
+
 @bot.command(pass_context=True)
 async def kick(ctx, user: discord.User, *, reason: str):
     if "451804048488792106" in [role.id for role in ctx.message.author.roles]:
@@ -315,6 +319,9 @@ async def kick(ctx, user: discord.User, *, reason: str):
         await bot.send_message(user, f"you have been kicked for: {reason}")
     else:
         await bot.say(":x: No Permissions")
+except 403:
+    print "We tried to DM, " + ctx.message.author.userName + " but their dm's are closed!"
+
 
 @bot.command(pass_context=True)
 async def info(ctx, user: discord.Member=None):
@@ -478,7 +485,8 @@ async def on_member_join(member: discord.Member):
 
 
 
-            ##print json.dumps(data, sort_keys=True, indent=4)
+            #data = json.loads(urllib.urlopen("http://api.giphy.com/v1/gifs/search?q=hmm&api_key=10oEBOhlkOhBe3lBd7hO0oDVr7PwUFnX&limit=5").read())
+            #print json.dumps(data, sort_keys=True, indent=4)
             #print(data.data[0].images.original.url)
            #img = Image.new(mode, size, color)
 
