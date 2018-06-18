@@ -312,7 +312,7 @@ async def kick(ctx, user: discord.User, *, reason: str):
     if "451804048488792106" in [role.id for role in ctx.message.author.roles]:
         await bot.kick(user)
         await bot.say(f"user has been kicked for reason: {reason}")
-        await bot.whisper("You have been Kicked for: {reason}")
+        await bot.send_message(user, f"you have been kicked for: {reason}")
     else:
         await bot.say(":x: No Permissions")
 
@@ -478,9 +478,9 @@ async def on_member_join(member: discord.Member):
 
 
 
-           #data = json.loads(urllib.urlopen("http://api.giphy.com/v1/gifs/search?q=hmm&api_key=10oEBOhlkOhBe3lBd7hO0oDVr7PwUFnX&limit=5").read())
-            #print json.dumps(data, sort_keys=True, indent=4)
-            #print(data.data[0].images.original.url)
+            data = json.loads(urllib.urlopen("http://api.giphy.com/v1/gifs/search?q=hmm&api_key=10oEBOhlkOhBe3lBd7hO0oDVr7PwUFnX&limit=5").read())
+            print json.dumps(data, sort_keys=True, indent=4)
+            print(data.data[0].images.original.url)
            #img = Image.new(mode, size, color)
 
                 #I'm gonna finish this shit later, gtg.
