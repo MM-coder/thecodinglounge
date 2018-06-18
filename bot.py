@@ -319,8 +319,6 @@ async def kick(ctx, user: discord.User, *, reason: str):
         await bot.send_message(user, f"you have been kicked for: {reason}")
     else:
         await bot.say(":x: No Permissions")
-except 403:
-    print "We tried to DM, " + ctx.message.author.userName + " but their dm's are closed!"
 
 
 @bot.command(pass_context=True)
