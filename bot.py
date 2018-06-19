@@ -91,6 +91,14 @@ async def server(ctx):
     embed.set_thumbnail(url=ctx.message.server.icon_url)
     await bot.say(embed=embed)
 
+@bot.command(pass_context=True)
+async def bitcoin(ctx):
+    url = 'https://api.coindesk.com/v1/bpi/currentprice/BTC.json'
+    async with aiohttp.ClientSession() as session:  # Async HTTP request
+        raw_response = await session.get(url)
+        response = await raw_response.text()
+        response = json.loads(response)
+        await bot.say("Bitcoin price is: $" + response['bpi']['USD']['rate'])
 
 @bot.command(pass_context=True)
 async def cat(ctx):
