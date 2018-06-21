@@ -227,8 +227,14 @@ class Normal():
         file = open('urban.txt', 'w')
         file.write("**Definition for {}** \n\n\n {}{}".format(r['list'][0]['word'],r['list'][0]['definition'],r['list'][0]['permalink']))
         file.close()
+        defini = r['list'][0]['definition']
+        if len(defini) > 2044:
+            defini = defini[0:2043] + '...'
+        embed = discord.Embed(title=r['list'][0]['word'], description=defini, colour=discord.Color.blue())
+        await self.bot.say(embed=embed)
         tmp = open('urban.txt', 'rb')
-        await self.bot.send_file(ctx.message.channel, 'urban.txt', content=tmp)
+        if len(defini) > 2044:
+            await self.bot.send_file(ctx.message.channel, 'urban.txt', content=tmp)
 
 
     @commands.command(pass_context=True)
