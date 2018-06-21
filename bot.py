@@ -233,19 +233,9 @@ async def help(ctx, module="all"):
             •`-server` - Gets you info on the server.
          """, colour=0x7289DA)
             embed.set_footer(icon_url="https://i.imgur.com/yB0Lig7.png", text="Custom Bot For The Coding Lounge")
-            await bot.say(embed=embed)
-    elif module == 'fun':
-            embed=discord.Embed(title="Help", description="""
-            Fun commands:
-             •`-cat` - Gets you a select cat GIF.
-             •`-dog` - Gets you a cool dog GIF.
-             •`-slap` - Slapy Slpay Scratchy Bitey.
-             •`-add` - Adds two numbers.
-             •`-multipy` - Multipys two numbers.
-             •`-gif` - Random GIF from giphy.
-         """, colour=0x7289DA)
-            embed.set_footer(icon_url="https://i.imgur.com/yB0Lig7.png", text="Custom Bot For The Coding Lounge")
-            await bot.say(embed=embed)
+            await bot.whisper(embed=embed)
+            await bot.say("Check your DMs")
+
 
 
 @bot.command(pass_context=True)
